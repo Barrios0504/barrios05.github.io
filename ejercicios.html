@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        
+        header {
+            background-color: #6358f6;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        h2 {
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+        
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        li {
+            margin-bottom: 10px;
+        }
+        
+        a {
+            color: #333;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        #content-area {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+        #status {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        
+        #headers {
+            margin-top: 10px;
+        }
+        
+        #status-code {
+            margin-top: 10px;
+        }
+    </style>
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            var urlInput = document.getElementById('url-input');
+            urlInput.value = window.location.href;
+            
+            var loadButton = document.getElementById('load-button');
+            var contentArea = document.getElementById('content-area');
+            var statusElement = document.getElementById('status');
+            var headersElement = document.getElementById('headers');
+            var statusCodeElement = document.getElementById('status-code');
+            
+            loadButton.addEventListener('click', function() {
+                var url = urlInput.value;
+                
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', url, true);
+                
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 1) {
+                        statusElement.textContent = 'Cargando...';
+                    } else if (xhr.readyState === 4) {
+                        statusElement.textContent = 'Completado';
+                        
+                        var headers = xhr.getAllResponseHeaders();
+                        headersElement.textContent = headers;
+                        
+                        var statusCode = xhr.status + ' ' + xhr.statusText;
+                        statusCodeElement.textContent = statusCode;
+                        
+                        contentArea.textContent = xhr.responseText;
+                    }
+                };
+                
+                xhr.send();
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Ejercicios</h1>
+    </header>
+    
+    <main>
+        <section>
+            <h2>JavaScript</h2>
+            <ul>
+                <li><a href="palindromo.html">Detectar si la cadena de entrada es un palíndromo</a></li>
+                <li><a href="mayor.html">Encontrar el número mayor</a></li>
+                <li><a href="vocales.html">Mostrar las vocales en una frase</a></li>
+                <li><a href="cuenta-vocales.html">Contar las vocales en una frase</a></li>
+            </ul>
+        </section>
+        
+        <section>
+            <h2>AJAX</h2>
+            <ul>
+                <li>
+                    <input type="text" id="url-input">
+                    <button id="load-button">Mostrar Contenidos</button>
+                    <div id="status"></div>
+                    <div id="headers"></div>
+                    <div id="status-code"></div>
+                    <div id="content-area"></div>
+                </li>
+            </ul>
+        </section>
+        
+    </main>
+</body>
+</html>
+
